@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - develop
+    - ghc-deployment
 
 jobs:
   lint:
