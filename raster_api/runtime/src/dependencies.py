@@ -1,4 +1,4 @@
-"""veda.raster.dependencies."""
+"""ghgc.raster.dependencies."""
 
 import json
 from base64 import b64decode

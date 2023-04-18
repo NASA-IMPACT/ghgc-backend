@@ -49,7 +49,7 @@ def get_secret_dict(secret_name: str):
 class _ApiSettings(pydantic.BaseSettings):
     """API settings"""
 
-    name: str = "veda-stac"
+    name: str = "ghgc-stac"
     cors_origins: str = "*"
     cachecontrol: str = "public, max-age=3600"
     debug: bool = False
@@ -82,7 +82,7 @@ class _ApiSettings(pydantic.BaseSettings):
         """model config"""
 
         env_file = ".env"
-        env_prefix = "VEDA_STAC_"
+        env_prefix = "STAC_"
 
 
 @lru_cache()

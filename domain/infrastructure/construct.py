@@ -10,7 +10,7 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-from .config import veda_domain_settings
+from .config import domain_settings
 
 
 class DomainConstruct(Construct):
@@ -30,17 +30,14 @@ class DomainConstruct(Construct):
         self.stac_domain_name = None
         self.raster_domain_name = None
 
-        if (
-            veda_domain_settings.hosted_zone_id
-            and veda_domain_settings.hosted_zone_name
-        ):
+        if domain_settings.hosted_zone_id and domain_settings.hosted_zone_name:
             # If alternative custom domain provided, use it instead of the default
             if alt_domain is True:
-                hosted_zone_name = veda_domain_settings.alt_hosted_zone_name
-                hosted_zone_id = veda_domain_settings.alt_hosted_zone_id
+                hosted_zone_name = domain_settings.alt_hosted_zone_name
+                hosted_zone_id = domain_settings.alt_hosted_zone_id
             else:
-                hosted_zone_name = veda_domain_settings.hosted_zone_name
-                hosted_zone_id = veda_domain_settings.hosted_zone_id
+                hosted_zone_name = domain_settings.hosted_zone_name
+                hosted_zone_id = domain_settings.hosted_zone_id
 
             hosted_zone = aws_route53.HostedZone.from_hosted_zone_attributes(
                 self,
@@ -58,9 +55,9 @@ class DomainConstruct(Construct):
             )
 
             # Use custom api prefix if provided or deployment stage if not
-            if veda_domain_settings.api_prefix:
-                raster_url_prefix = f"{veda_domain_settings.api_prefix.lower()}-raster"
-                stac_url_prefix = f"{veda_domain_settings.api_prefix.lower()}-stac"
+            if domain_settings.api_prefix:
+                raster_url_prefix = f"{domain_settings.api_prefix.lower()}-raster"
+                stac_url_prefix = f"{domain_settings.api_prefix.lower()}-stac"
             else:
                 raster_url_prefix = f"{stage.lower()}-raster"
                 stac_url_prefix = f"{stage.lower()}-stac"
@@ -84,7 +81,7 @@ class DomainConstruct(Construct):
                         regional_hosted_zone_id=self.raster_domain_name.regional_hosted_zone_id,
                     )
                 ),
-                # Note: CDK will append the hosted zone name (eg: `veda-backend.xyz` to this record name)
+                # Note: CDK will append the hosted zone name (eg: `ghgc-backend.xyz` to this record name)
                 record_name=raster_url_prefix,
             )
 
@@ -105,7 +102,7 @@ class DomainConstruct(Construct):
                         regional_hosted_zone_id=self.stac_domain_name.regional_hosted_zone_id,
                     )
                 ),
-                # Note: CDK will append the hosted zone name (eg: `veda-backend.xyz` to this record name)
+                # Note: CDK will append the hosted zone name (eg: `ghgc-backend.xyz` to this record name)
                 record_name=stac_url_prefix,
             )
 

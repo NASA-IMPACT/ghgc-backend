@@ -1,4 +1,4 @@
-"""CoreCrudClient extensions for the VEDA STAC API."""
+"""CoreCrudClient extensions for the STAC API."""
 from datetime import datetime
 from typing import Any, List, Optional, Union
 
@@ -19,8 +19,8 @@ from .search import CollectionSearchPost
 NumType = Union[float, int]
 
 
-class VedaCrudClient(CoreCrudClient):
-    """Veda STAC API Client."""
+class AppCrudClient(CoreCrudClient):
+    """STAC API Client."""
 
     async def _collection_id_search_base(
         self,

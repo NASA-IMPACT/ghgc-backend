@@ -48,7 +48,7 @@ def get_role_credentials(role_arn: str):
 class ApiSettings(BaseSettings):
     """API settings"""
 
-    name: str = "veda-raster"
+    name: str = "ghgc-raster"
     cors_origins: str = "*"
     cachecontrol: str = "public, max-age=3600"
     debug: bool = False
@@ -113,4 +113,4 @@ class ApiSettings(BaseSettings):
         """model config"""
 
         env_file = ".env"
-        env_prefix = "VEDA_RASTER_"
+        env_prefix = "RASTER_"

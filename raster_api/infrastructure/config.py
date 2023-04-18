@@ -1,12 +1,12 @@
 """Settings for Raster API - any environment variables starting with
-`VEDA_RASTER_` will overwrite the values of variables in this file
+`RASTER_` will overwrite the values of variables in this file
 """
 from typing import Dict, List, Optional
 
 from pydantic import BaseSettings, Field
 
 
-class vedaRasterSettings(BaseSettings):
+class RasterSettings(BaseSettings):
     """Application settings"""
 
     # Default options are optimized for CloudOptimized GeoTIFF
@@ -68,7 +68,7 @@ class vedaRasterSettings(BaseSettings):
         """model config"""
 
         env_file = ".env"
-        env_prefix = "VEDA_RASTER_"
+        env_prefix = "RASTER_"
 
 
-veda_raster_settings = vedaRasterSettings()
+raster_settings = RasterSettings()

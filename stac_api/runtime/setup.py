@@ -26,11 +26,11 @@ extra_reqs = {
 
 
 setup(
-    name="veda.stac_api",
+    name="ghgc.stac_api",
     description="",
     python_requires=">=3.7",
     packages=find_namespace_packages(exclude=["tests*"]),
-    package_data={"veda": ["stac/templates/*.html"]},
+    package_data={"ghgc": ["stac/templates/*.html"]},
     include_package_data=True,
     zip_safe=False,
     install_requires=inst_reqs,
