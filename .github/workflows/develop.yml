@@ -1,5 +1,9 @@
 name: Develop - Lint, Test, and Deploy Workflow
 
+permissions:
+  id-token: write
+  contents: read
+
 on:
   push:
     branches:
