@@ -3,7 +3,7 @@ name: Develop - Lint, Test, and Deploy Workflow
 on:
   push:
     branches:
-    - develop
+    - main
 
 jobs:
   lint:
