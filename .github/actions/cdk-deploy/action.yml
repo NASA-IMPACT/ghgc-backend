@@ -33,7 +33,6 @@ runs:
       run: npm install -g aws-cdk@2
 
     - uses: actions/cache@v3
-      working-directory: ${{ inputs.dir }}
       with:
         path: ${{ env.pythonLocation }}
         key:  ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}
