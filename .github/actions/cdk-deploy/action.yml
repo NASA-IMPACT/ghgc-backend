@@ -35,7 +35,7 @@ runs:
     - uses: actions/cache@v3
       with:
         path: ${{ env.pythonLocation }}
-        key:  ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}
+        key:  ${{ env.pythonLocation }}-${{ hashFiles('${{ inputs.dir }}/setup.py') }}
     
     - name: Install python dependencies
       shell: bash
