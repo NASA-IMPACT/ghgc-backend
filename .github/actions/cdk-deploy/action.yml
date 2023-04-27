@@ -41,20 +41,12 @@ runs:
     - name: Get relevant environment configuration from aws secrets
       shell: bash
       working-directory: ${{ inputs.dir }}
-<<<<<<< HEAD
       run: ./scripts/get-env.sh "ghgc-backend-uah-dev-env"
-=======
-      run: ./scripts/get-env.sh "veda-backend-uah-dev-env"
->>>>>>> 14277d1
 
     - name: Deploy 
       shell: bash
       working-directory: ${{ inputs.dir }}
       run: |
         echo $STAGE
-<<<<<<< HEAD
         cdk deploy ghgc-backend-uah-dev
-=======
-        cdk deploy veda-backend-uah-dev
->>>>>>> 14277d1
           
