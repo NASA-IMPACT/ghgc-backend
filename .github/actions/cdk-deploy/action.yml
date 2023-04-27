@@ -48,8 +48,8 @@ runs:
       shell: bash
       working-directory: ${{ inputs.dir }}
       run: |
-      echo ${{ inputs.dir }}
-      ./scripts/get-env.sh {{ inputs.env_aws_secret_name }}
+        echo "${{ inputs.env_aws_secret_name }}"
+        ./scripts/get-env.sh {{ inputs.env_aws_secret_name }}
 
     - name: Deploy 
       shell: bash
