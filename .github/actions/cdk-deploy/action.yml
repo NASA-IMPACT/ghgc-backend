@@ -49,7 +49,7 @@ runs:
       working-directory: ${{ inputs.dir }}
       run: |
         echo "${{ inputs.env_aws_secret_name }}"
-        ./scripts/get-env.sh {{ inputs.env_aws_secret_name }}
+        ./scripts/sync-env-local.sh {{ inputs.env_aws_secret_name }}
 
     - name: Deploy 
       shell: bash
