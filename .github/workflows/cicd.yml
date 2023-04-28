@@ -1,0 +1,71 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - production
+  pull_request:
+    branches:
+      - main
+      - dev
+      - production
+    types: [ opened, reopened, edited, synchronize ]
+
+jobs:
+  gitflow-enforcer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch
+        if: github.base_ref == 'main' && github.head_ref != 'dev' || github.base_ref == 'production' && github.head_ref != 'main'
+        run: |
+          echo "ERROR: You can only merge to main from dev and to production from main"
+          exit 1
+
+  define-environment:
+    name: Set ✨ environment ✨ based on the branch 🌳
+    needs: gitflow-enforcer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set the environment
+        id: define_environment
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "env_name=staging" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+            echo "env_name=development" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" = "refs/heads/production" ]; then
+            echo "env_name=production" >> $GITHUB_OUTPUT
+          fi
+      - name: Print the environment
+        run: echo "The environment is ${{ steps.define_environment.outputs.env_name }}"
+
+    outputs:
+      env_name: ${{ steps.define_environment.outputs.env_name }}
+
+  deploy:
+    name: Deploy to ${{ needs.define-environment.outputs.env_name }}
+    runs-on: ubuntu-latest
+    needs: [gitflow-enforcer, define-environment]
+    environment: ${{ needs.define-environment.outputs.env_name }}
+    concurrency: ${{ needs.define-environment.outputs.env_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: "true"
+          submodules: "recursive"
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.DEPLOYMENT_ROLE_ARN }}
+          role-session-name: "ghgc-backend-github-${{ needs.define-environment.outputs.env_name }}-deployment"
+          aws-region: "us-west-2"
+
+      - name: Run deployment
+        uses: ".github/actions/cdk-deploy"
+        with:
+          env_aws_secret_name: ${{ secrets.ENV_AWS_SECRET_NAME }}
