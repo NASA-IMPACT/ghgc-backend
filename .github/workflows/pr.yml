@@ -89,7 +89,7 @@ jobs:
 
   predeploy:
     needs: [test]
-
+    environment: development
     runs-on: ubuntu-latest
     steps:
 
@@ -129,7 +129,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .[dev,deploy,test]
 
-      - name: Get dev environment configuration for develop branch
+      - name: Get environment configuration for develop branch
         run: ./scripts/get-env.sh ${{ secrets.ENV_AWS_SECRET_NAME }}
 
       - name: Pre deployment CDK diff
