@@ -1,1 +1,1 @@
-## ghgc.stac_api
+## veda.stac_api

@@ -5,14 +5,14 @@ from typing import Optional
 from pydantic import BaseSettings, Field
 
 
-class DomainSettings(BaseSettings):
+class vedaDomainSettings(BaseSettings):
     """Application settings"""
 
     hosted_zone_id: Optional[str] = Field(
         None, description="Route53 hosted zone identifier if using a custom domain name"
     )
     hosted_zone_name: Optional[str] = Field(
-        None, description="Custom domain name, i.e. ghgc-backend.xyz"
+        None, description="Custom domain name, i.e. veda-backend.xyz"
     )
     api_prefix: Optional[str] = Field(
         None,
@@ -29,14 +29,14 @@ class DomainSettings(BaseSettings):
         None, description="Second Route53 zone identifier if using a custom domain name"
     )
     alt_hosted_zone_name: Optional[str] = Field(
-        None, description="Second custom domain name, i.e. alt-ghgc-backend.xyz"
+        None, description="Second custom domain name, i.e. alt-veda-backend.xyz"
     )
 
     class Config:
         """model config"""
 
         env_file = ".env"
-        env_prefix = "DOMAIN_"
+        env_prefix = "VEDA_DOMAIN_"
 
 
-domain_settings = DomainSettings()
+veda_domain_settings = vedaDomainSettings()

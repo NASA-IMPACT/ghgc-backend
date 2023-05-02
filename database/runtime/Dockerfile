@@ -5,8 +5,7 @@ RUN echo "Using PGSTAC Version ${PGSTAC_VERSION}"
 
 WORKDIR /tmp
 
-RUN yum -y install postgresql-libs
-RUN pip install boto3 requests "psycopg[binary,pool]" pypgstac==${PGSTAC_VERSION} -t /asset
+RUN pip install requests psycopg[binary,pool] pypgstac==${PGSTAC_VERSION} -t /asset
 
 COPY database/runtime/handler.py /asset/handler.py
 

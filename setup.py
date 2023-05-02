@@ -1,4 +1,4 @@
-"""Setup ghgc-backend."""
+"""Setup veda-backend."""
 
 from setuptools import find_packages, setup
 
@@ -26,7 +26,7 @@ extra_reqs = {
 
 
 setup(
-    name="ghgc-backend",
+    name="veda-backend",
     version="0.6.2",
     description="",
     long_description=long_description,
@@ -42,10 +42,10 @@ setup(
     keywords="",
     author="Development Seed",
     author_email="info@developmentseed.org",
-    url="https://github.com/NASA-IMPACT/ghgc-backend",
+    url="https://github.com/NASA-IMPACT/veda-backend",
     license="MIT",
     packages=find_packages(exclude=["ez_setup", "examples", "tests"]),
-    package_data={"ghgc-backend": ["templates/*.html", "templates/*.xml"]},
+    package_data={"veda-backend": ["templates/*.html", "templates/*.xml"]},
     include_package_data=True,
     zip_safe=False,
     install_requires=[],

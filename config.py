@@ -4,12 +4,12 @@ from typing import Optional
 from pydantic import BaseSettings, Field
 
 
-class AppSettings(BaseSettings):
+class vedaAppSettings(BaseSettings):
     """Application settings."""
 
     # App name and deployment stage
     app_name: Optional[str] = Field(
-        "ghgc-backend",
+        "veda-backend",
         description="Optional app name used to name stack and resources",
     )
     stage: str = Field(
@@ -38,13 +38,13 @@ class AppSettings(BaseSettings):
         None,
         description="Name of IAM policy to define stack permissions boundary",
     )
-    domain_alt_hosted_zone_id: Optional[str] = Field(
+    veda_domain_alt_hosted_zone_id: Optional[str] = Field(
         None,
         description="Route53 zone identifier if using a custom domain name",
     )
-    domain_alt_hosted_zone_name: Optional[str] = Field(
+    veda_domain_alt_hosted_zone_name: Optional[str] = Field(
         None,
-        description="Custom domain name, i.e. ghgc-backend.xyz",
+        description="Custom domain name, i.e. veda-backend.xyz",
     )
 
     def cdk_env(self) -> dict:
@@ -62,8 +62,8 @@ class AppSettings(BaseSettings):
         """True if alternative domain and host parameters provided"""
         return all(
             [
-                self.domain_alt_hosted_zone_id,
-                self.domain_alt_hosted_zone_name,
+                self.veda_domain_alt_hosted_zone_id,
+                self.veda_domain_alt_hosted_zone_name,
             ]
         )
 
@@ -77,4 +77,4 @@ class AppSettings(BaseSettings):
         env_file = ".env"
 
 
-app_settings = AppSettings()
+veda_app_settings = vedaAppSettings()

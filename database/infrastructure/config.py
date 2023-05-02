@@ -1,10 +1,10 @@
-"""ghgc-backend database construct configuration."""
+"""Veda-backend database construct configuration."""
 from typing import Optional
 
 from pydantic import BaseSettings, Field
 
 
-class DBSettings(BaseSettings):
+class vedaDBSettings(BaseSettings):
     """Application settings."""
 
     dbname: str = Field(
@@ -16,7 +16,7 @@ class DBSettings(BaseSettings):
         description="Name of admin role for postgres database",
     )
     user: str = Field(
-        "ghgc",
+        "veda",
         description="Name of pgstac role for postgres database",
     )
     pgstac_version: str = Field(
@@ -25,7 +25,7 @@ class DBSettings(BaseSettings):
     )
     schema_version: str = Field(
         ...,
-        description="The version of the custom backend schema, i.e. 0.1.1",
+        description="The version of the custom veda-backend schema, i.e. 0.1.1",
     )
     snapshot_id: Optional[str] = Field(
         None,
@@ -60,7 +60,7 @@ class DBSettings(BaseSettings):
         """model config."""
 
         env_file = ".env"
-        env_prefix = "DB_"
+        env_prefix = "VEDA_DB_"
 
 
-db_settings = DBSettings()
+veda_db_settings = vedaDBSettings()

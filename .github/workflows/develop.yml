@@ -73,10 +73,10 @@ jobs:
           python -m pip install -e .[dev,deploy,test] 
 
       - name: Get dev environment configuration for develop branch
-        run: ./scripts/get-env.sh "ghgc-backend-dev"
+        run: ./scripts/get-env.sh "veda-backend-uah-dev-env"
 
       - name: Deploy 
         run: |
           echo $STAGE
-          cdk deploy --all --require-approval never
+          cdk deploy veda-backend-uah-dev
           

@@ -1,4 +1,4 @@
-"""FastAPI extensions for the STAC API."""
+"""FastAPI extensions for the VEDA STAC API."""
 from typing import List
 
 import attr
@@ -6,14 +6,14 @@ import attr
 from stac_fastapi.api.app import StacApi
 from stac_fastapi.api.routes import create_async_endpoint
 
-from .core import AppCrudClient
+from .core import VedaCrudClient
 from .search import CollectionSearchGet, CollectionSearchPost
 
 
-class AppStacApi(StacApi):
-    """STAC API."""
+class VedaStacApi(StacApi):
+    """Veda STAC API."""
 
-    client: AppCrudClient = attr.ib()
+    client: VedaCrudClient = attr.ib()
 
     def register_post_search(self):
         """Register search endpoint (POST /search).

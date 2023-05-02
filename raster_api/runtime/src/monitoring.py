@@ -7,8 +7,8 @@ from aws_lambda_powertools.metrics import MetricUnit  # noqa: F401
 from fastapi import Request, Response
 from fastapi.routing import APIRoute
 
-logger: Logger = Logger(service="raster-api", namespace="ghgc-backend")
-metrics: Metrics = Metrics(service="raster-api", namespace="ghgc-backend")
+logger: Logger = Logger(service="raster-api", namespace="veda-backend")
+metrics: Metrics = Metrics(service="raster-api", namespace="veda-backend")
 tracer: Tracer = Tracer()
 
 
