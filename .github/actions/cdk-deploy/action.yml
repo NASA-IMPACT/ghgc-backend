@@ -5,8 +5,9 @@ inputs:
     required: true
     type: string
   dir:
-    required: true
+    required: false
     type: string
+    default: "."
 
 runs:
   using: "composite"
@@ -19,7 +20,7 @@ runs:
         python-version: '3.9'
     
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with: 
         node-version: 17
 
@@ -56,4 +57,3 @@ runs:
       run: |
         echo $STAGE
         cdk deploy --all --require-approval never
-          
