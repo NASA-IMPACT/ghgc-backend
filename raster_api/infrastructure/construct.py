@@ -43,10 +43,10 @@ class RasterApiLambdaConstruct(Construct):
             assumed_by=aws_iam.ServicePrincipal("lambda.amazonaws.com"),
             description="Role assumed by veda-lambdas to access data",
             managed_policies=[
-                aws_iam.ManagedPolicy.fromAwsManagedPolicyName(
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(
                     "service-role/AWSLambdaVPCAccessExecutionRole"
                 ),
-                aws_iam.ManagedPolicy.fromAwsManagedPolicyName(
+                aws_iam.ManagedPolicy.from_aws_managed_policy_name(
                     "service-role/AWSLambdaBasicExecutionRole"
                 ),
             ],
