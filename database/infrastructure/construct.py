@@ -213,6 +213,6 @@ class RdsConstruct(Construct):
         CfnOutput(
             self,
             "security-group-id",
-            value=database.connections.secutiry_groups[0].security_group_id,
+            value=database.connections.security_groups[0].security_group_id,
             description=f"The secutiry group id associated with the {construct_id} postgres database",
         )
