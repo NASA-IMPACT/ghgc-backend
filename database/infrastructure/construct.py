@@ -47,10 +47,12 @@ class BootstrapPgStac(Construct):
             "lambda",
             handler="handler.handler",
             runtime=aws_lambda.Runtime.PYTHON_3_9,
+            architecture=aws_lambda.Architecture.X86_64,
             code=aws_lambda.Code.from_docker_build(
                 path=os.path.abspath("./"),
                 file="database/runtime/Dockerfile",
                 build_args={"PGSTAC_VERSION": pgstac_version},
+                platform="linux/amd64",
             ),
             timeout=Duration.minutes(2),
             vpc=database.vpc,
