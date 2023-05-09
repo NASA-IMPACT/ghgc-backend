@@ -36,22 +36,6 @@ class RasterApiLambdaConstruct(Construct):
         # TODO config
         stack_name = Stack.of(self).stack_name
 
-        lambda_data_access_role = aws_iam.Role(
-            self,
-            "role",
-            role_name=f"{stack_name}-data-access-role",
-            assumed_by=aws_iam.ServicePrincipal("lambda.amazonaws.com"),
-            description="Role assumed by veda-lambdas to access data",
-            managed_policies=[
-                aws_iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "service-role/AWSLambdaVPCAccessExecutionRole"
-                ),
-                aws_iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "service-role/AWSLambdaBasicExecutionRole"
-                ),
-            ],
-        )
-
         veda_raster_function = aws_lambda.Function(
             self,
             "lambda",
@@ -69,7 +53,6 @@ class RasterApiLambdaConstruct(Construct):
             log_retention=aws_logs.RetentionDays.ONE_WEEK,
             environment=veda_raster_settings.env or {},
             tracing=aws_lambda.Tracing.ACTIVE,
-            role=lambda_data_access_role,
         )
 
         database.pgstac.secret.grant_read(veda_raster_function)
