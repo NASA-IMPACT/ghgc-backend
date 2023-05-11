@@ -46,6 +46,9 @@ class vedaAppSettings(BaseSettings):
         None,
         description="Custom domain name, i.e. veda-backend.xyz",
     )
+    veda_cf_distribution_arn: Optional[str] = Field(
+        None, description="Cloudfront distribution ARN"
+    )
 
     def cdk_env(self) -> dict:
         """Load a cdk environment dict for stack"""

@@ -4,6 +4,7 @@
 from aws_cdk import App, Stack, Tags, aws_iam
 from constructs import Construct
 
+from cloudfront.infrastructure.construct import CfConstruct
 from config import veda_app_settings
 from database.infrastructure.construct import RdsConstruct
 from domain.infrastructure.construct import DomainConstruct
@@ -69,9 +70,16 @@ stac_api = StacApiLambdaConstruct(
     domain_name=domain.stac_domain_name,
 )
 
+if veda_app_settings.veda_cf_distribution_arn:
+    CfConstruct(
+        veda_stack,
+        "cf-update",
+        raster_api_url=raster_api.raster_api.url,
+        stac_api_url=stac_api.stac_api.url,
+    )
+
 # TODO this conditional supports deploying a second set of APIs to a separate custom domain and should be removed if no longer necessary
 if veda_app_settings.alt_domain():
-
     alt_domain = DomainConstruct(
         veda_stack,
         "alt-domain",

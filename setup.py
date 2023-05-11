@@ -14,6 +14,7 @@ extra_reqs = {
         "aws-cdk.aws_apigatewayv2_alpha~=2.15.0a0",
         "aws_cdk.aws_apigatewayv2_integrations_alpha~=2.15.0a0",
         "pydantic",
+        "cdk-cloudfront-update@git+https://github.com/developmentseed/cdk-cloudfront-update.git#egg=cdk-cloudfront-update",
     ],
     "test": [
         "pytest",
