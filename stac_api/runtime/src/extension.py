@@ -4,6 +4,7 @@ from typing import Optional
 from urllib.parse import urlencode
 
 import attr
+from src.config import ApiSettings
 
 from fastapi import APIRouter, FastAPI, HTTPException, Path, Query
 from fastapi.responses import RedirectResponse
@@ -11,7 +12,6 @@ from stac_fastapi.types.extension import ApiExtension
 from starlette.requests import Request
 
 from .monitoring import LoggerRouteHandler, tracer
-from src.config import ApiSettings
 
 api_settings = ApiSettings()
 path_prefix = api_settings.path_prefix
