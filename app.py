@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ CDK Configuration for the veda-backend stack."""
 
-from aws_cdk import App, Stack, Tags, aws_iam
+from aws_cdk import App, Aspects, Stack, Tags, aws_iam
 from constructs import Construct
 
 from config import veda_app_settings
@@ -31,7 +31,7 @@ class VedaStack(Stack):
 
             from permission_boundary import PermissionBoundaryAspect
 
-            self.node.apply_aspect(PermissionBoundaryAspect(permission_boundary_policy))
+            Aspects.of(self).add(PermissionBoundaryAspect(permission_boundary_policy))
 
 
 veda_stack = VedaStack(
