@@ -22,10 +22,10 @@ class VedaStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         if veda_app_settings.permissions_boundary_policy_name:
-            permission_boundary_policy = (
-                aws_iam.ManagedPolicy.from_aws_managed_policy_name(
-                    veda_app_settings.permissions_boundary_policy_name,
-                )
+            permission_boundary_policy = aws_iam.ManagedPolicy.from_managed_policy_name(
+                self,
+                "permission-boundary",
+                veda_app_settings.permissions_boundary_policy_name,
             )
             aws_iam.PermissionsBoundary.of(self).apply(permission_boundary_policy)
 
