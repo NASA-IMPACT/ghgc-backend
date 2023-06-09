@@ -24,8 +24,6 @@ class VedaStack(Stack):
         if veda_app_settings.permissions_boundary_policy_name:
             permission_boundary_policy = (
                 aws_iam.ManagedPolicy.from_aws_managed_policy_name(
-                    self,
-                    "permission-boundary",
                     veda_app_settings.permissions_boundary_policy_name,
                 )
             )
