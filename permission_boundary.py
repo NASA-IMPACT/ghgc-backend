@@ -2,7 +2,7 @@
 from typing import Union
 
 import jsii
-from aws_cdk import aws_iam, IAspect
+from aws_cdk import IAspect, aws_iam
 from constructs import IConstruct
 from jsii._reference_map import _refs
 from jsii._utils import Singleton
