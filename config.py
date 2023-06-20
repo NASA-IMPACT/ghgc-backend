@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseSettings, Field
 
 
-class vedaAppSettings(BaseSettings):
+class vedaBackendAppSettings(BaseSettings):
     """Application settings."""
 
     # App name and deployment stage
@@ -29,6 +29,10 @@ class vedaAppSettings(BaseSettings):
             "Resource identifier of VPC, if none a new VPC with public and private "
             "subnets will be provisioned."
         ),
+    )
+    cdk_qualifier: Optional[str] = Field(
+        "hnb659fds",
+        description="CDK qualifier for deployment.",
     )
     aws_account_id: Optional[str] = Field(
         None,
@@ -81,4 +85,4 @@ class vedaAppSettings(BaseSettings):
         env_file = ".env"
 
 
-backend_app_settings = vedaAppSettings()
+backend_app_settings = vedaBackendAppSettings()
