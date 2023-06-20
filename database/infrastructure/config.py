@@ -62,7 +62,7 @@ class vedaDBSettings(BaseSettings):
         """model config."""
 
         env_file = ".env"
-        # env_prefix = "VEDA_DB_"
+        env_prefix = "VEDA_DB_"
 
 
 veda_db_settings = vedaDBSettings()
