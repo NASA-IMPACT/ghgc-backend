@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """ CDK Configuration for the veda-backend stack."""
 
-from aws_cdk import App, Aspects, Stack, Tags, aws_iam
+from aws_cdk import App, Aspects, Stack, Tags, aws_iam, DefaultStackSynthesizer
 from constructs import Construct
 
-from config import veda_app_settings
+from config import backend_app_settings
 from database.infrastructure.construct import RdsConstruct
 from domain.infrastructure.construct import DomainConstruct
 from network.infrastructure.construct import VpcConstruct
@@ -12,20 +12,20 @@ from raster_api.infrastructure.construct import RasterApiLambdaConstruct
 from stac_api.infrastructure.construct import StacApiLambdaConstruct
 
 app = App()
+proj_prefix = backend_app_settings.project_prefix
 
-
-class VedaStack(Stack):
+class BackendStack(Stack):
     """CDK stack for the veda-backend stack."""
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         """."""
         super().__init__(scope, construct_id, **kwargs)
 
-        if veda_app_settings.permissions_boundary_policy_name:
+        if backend_app_settings.permissions_boundary_policy_name:
             permission_boundary_policy = aws_iam.ManagedPolicy.from_managed_policy_name(
                 self,
                 "permission-boundary",
-                veda_app_settings.permissions_boundary_policy_name,
+                backend_app_settings.permissions_boundary_policy_name,
             )
             aws_iam.PermissionsBoundary.of(self).apply(permission_boundary_policy)
 
@@ -34,30 +34,33 @@ class VedaStack(Stack):
             Aspects.of(self).add(PermissionBoundaryAspect(permission_boundary_policy))
 
 
-veda_stack = VedaStack(
+backend_stack = BackendStack(
     app,
-    f"{veda_app_settings.app_name}-{veda_app_settings.stage_name()}",
-    env=veda_app_settings.cdk_env(),
+    f"{proj_prefix}-{backend_app_settings.app_name}-{backend_app_settings.stage_name()}",
+    env=backend_app_settings.cdk_env(),
+    synthesizer=DefaultStackSynthesizer(
+        qualifier=backend_app_settings.cdk_qualifier
+)
 )
 
-if veda_app_settings.vpc_id:
+if backend_app_settings.vpc_id:
     vpc = VpcConstruct(
-        veda_stack,
+        backend_stack,
         "network",
-        vpc_id=veda_app_settings.vpc_id,
-        stage=veda_app_settings.stage_name(),
+        vpc_id=backend_app_settings.vpc_id,
+        stage=backend_app_settings.stage_name(),
     )
 else:
-    vpc = VpcConstruct(veda_stack, "network", stage=veda_app_settings.stage_name())
+    vpc = VpcConstruct(backend_stack, "network", stage=backend_app_settings.stage_name())
 
 database = RdsConstruct(
-    veda_stack, "database", vpc.vpc, stage=veda_app_settings.stage_name()
+    backend_stack, "database", vpc.vpc, stage=backend_app_settings.stage_name()
 )
 
-domain = DomainConstruct(veda_stack, "domain", stage=veda_app_settings.stage_name())
+domain = DomainConstruct(backend_stack, "domain", stage=backend_app_settings.stage_name())
 
 raster_api = RasterApiLambdaConstruct(
-    veda_stack,
+    backend_stack,
     "raster-api",
     vpc=vpc.vpc,
     database=database,
@@ -65,7 +68,7 @@ raster_api = RasterApiLambdaConstruct(
 )
 
 stac_api = StacApiLambdaConstruct(
-    veda_stack,
+    backend_stack,
     "stac-api",
     vpc=vpc.vpc,
     database=database,
@@ -74,16 +77,16 @@ stac_api = StacApiLambdaConstruct(
 )
 
 # TODO this conditional supports deploying a second set of APIs to a separate custom domain and should be removed if no longer necessary
-if veda_app_settings.alt_domain():
+if backend_app_settings.alt_domain():
     alt_domain = DomainConstruct(
-        veda_stack,
+        backend_stack,
         "alt-domain",
-        stage=veda_app_settings.stage_name(),
+        stage=backend_app_settings.stage_name(),
         alt_domain=True,
     )
 
     alt_raster_api = RasterApiLambdaConstruct(
-        veda_stack,
+        backend_stack,
         "alt-raster-api",
         vpc=vpc.vpc,
         database=database,
@@ -91,7 +94,7 @@ if veda_app_settings.alt_domain():
     )
 
     alt_stac_api = StacApiLambdaConstruct(
-        veda_stack,
+        backend_stack,
         "alt-stac-api",
         vpc=vpc.vpc,
         database=database,
@@ -100,8 +103,8 @@ if veda_app_settings.alt_domain():
     )
 
 for key, value in {
-    "Project": veda_app_settings.app_name,
-    "Stack": veda_app_settings.stage_name(),
+    "Project": proj_prefix,
+    "Stack": backend_app_settings.stage_name(),
     "Client": "nasa-impact",
     "Owner": "ds",
 }.items():

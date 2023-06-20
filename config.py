@@ -9,8 +9,12 @@ class vedaAppSettings(BaseSettings):
 
     # App name and deployment stage
     app_name: Optional[str] = Field(
-        "ghgc-backend",
+        "backend",
         description="Optional app name used to name stack and resources",
+    )
+    project_prefix: Optional[str] = Field(
+        None,
+        description="Project prefix (ghgc/veda/...)",
     )
     stage: str = Field(
         ...,
@@ -26,11 +30,11 @@ class vedaAppSettings(BaseSettings):
             "subnets will be provisioned."
         ),
     )
-    cdk_default_account: Optional[str] = Field(
+    AWS_ACCOUNT_ID: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS account id is required to deploy to an exiting VPC",
     )
-    cdk_default_region: Optional[str] = Field(
+    AWS_REGION: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS region id is required to deploy to an exiting VPC",
     )
@@ -52,8 +56,8 @@ class vedaAppSettings(BaseSettings):
 
         if self.vpc_id:
             return {
-                "account": self.cdk_default_account,
-                "region": self.cdk_default_region,
+                "account": self.AWS_ACCOUNT_ID,
+                "region": self.AWS_REGION,
             }
         else:
             return {}
@@ -77,4 +81,4 @@ class vedaAppSettings(BaseSettings):
         env_file = ".env"
 
 
-veda_app_settings = vedaAppSettings()
+backend_app_settings = vedaAppSettings()

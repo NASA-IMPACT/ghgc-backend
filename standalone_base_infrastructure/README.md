@@ -22,8 +22,8 @@ See main app [deployment instructions](../README.md#deployment).
 | Name | Explanation |
 | --- | --- |
 | `BASE_NAME` | App name used to name stack and resources, defaults to `veda-shared` |
-| `CDK_DEFAULT_ACCOUNT` | The AWS account id is required to deploy to an exiting VPC |
-| `CDK_DEFAULT_REGION` | The AWS region id is required to deploy to an exiting VPC |
+| `AWS_ACCOUNT_ID` | The AWS account id is required to deploy to an exiting VPC |
+| `AWS_REGION` | The AWS region id is required to deploy to an exiting VPC |
 | `VPC_CIDR` | The CIDR range to use for the VPC. Default is 10.100.0.0/16 |
 | `VPC_MAX_AZS` | Maximum number of availability zones per region. Default is 2. |
 | `VPC_NAT_GATEWAYS` | Number of NAT gateways to create. Default is 1. |
