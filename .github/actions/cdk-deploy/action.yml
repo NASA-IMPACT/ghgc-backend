@@ -49,11 +49,11 @@ runs:
       shell: bash
       working-directory: ${{ inputs.dir }}
       run: |
-        ./scripts/sync-env-local.sh ${{ inputs.env_aws_secret_name }}
+         aws secretsmanager get-secret-value --secret-id $SECRET_SSM_NAME --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env
 
     - name: Deploy 
       shell: bash
       working-directory: ${{ inputs.dir }}
       run: |
         echo $STAGE
-        cdk deploy --all --require-approval never --outputs-file ${HOME}/cdk-outputs.json
+        # cdk deploy --all --require-approval never --outputs-file ${HOME}/cdk-outputs.json
