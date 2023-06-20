@@ -30,11 +30,11 @@ class vedaAppSettings(BaseSettings):
             "subnets will be provisioned."
         ),
     )
-    AWS_ACCOUNT_ID: Optional[str] = Field(
+    aws_account_id: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS account id is required to deploy to an exiting VPC",
     )
-    AWS_REGION: Optional[str] = Field(
+    aws_region: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS region id is required to deploy to an exiting VPC",
     )
@@ -56,8 +56,8 @@ class vedaAppSettings(BaseSettings):
 
         if self.vpc_id:
             return {
-                "account": self.AWS_ACCOUNT_ID,
-                "region": self.AWS_REGION,
+                "account": self.aws_account_id,
+                "region": self.aws_region,
             }
         else:
             return {}
