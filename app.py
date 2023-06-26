@@ -36,7 +36,7 @@ class BackendStack(Stack):
 
 backend_stack = BackendStack(
     app,
-    f"{backend_app_settings.app_name}-{backend_app_settings.stage_name()}",
+    f"{proj_prefix}-{backend_app_settings.app_name}-{backend_app_settings.stage_name()}",
     env=backend_app_settings.cdk_env(),
     synthesizer=DefaultStackSynthesizer(
         qualifier=backend_app_settings.cdk_qualifier
