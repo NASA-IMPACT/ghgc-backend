@@ -98,9 +98,8 @@ class RasterApiLambdaConstruct(Construct):
             default_domain_mapping=domain_mapping,
         )
 
-        CfnOutput(self, "raster-api", value=self.raster_api.url)
+        CfnOutput(self, "raster-api", value=self.raster_api.url, export_name="raster-url")
         CfnOutput(self, "raster-api-arn", value=veda_raster_function.function_arn)
-        CfnOutput(self, "amarouane", value="Hello world")
         veda_raster_function.add_to_role_policy(
             aws_iam.PolicyStatement(
                 actions=["s3:GetObject"],

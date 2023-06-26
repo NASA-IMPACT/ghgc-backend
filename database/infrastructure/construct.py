@@ -238,6 +238,7 @@ class RdsConstruct(Construct):
         CfnOutput(
             self,
             "pgstac-secret-name",
+            export_name="stac-db-secret-name",
             value=self.pgstac.secret.secret_arn,
             description=f"Name of the Secrets Manager instance holding the connection info for the {construct_id} postgres database",
         )
@@ -245,6 +246,7 @@ class RdsConstruct(Construct):
         CfnOutput(
             self,
             "security-group-id",
+            export_name="stac-db-security-group-id",
             value=database.connections.security_groups[0].security_group_id,
-            description=f"The secutiry group id associated with the {construct_id} postgres database",
+            description=f"The security group id associated with the {construct_id} postgres database",
         )
