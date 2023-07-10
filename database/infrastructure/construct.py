@@ -151,14 +151,13 @@ class RdsConstruct(Construct):
                 "temp_buffers": veda_db_settings.temp_buffers,
             },
         )
-        credentials = aws_rds.SnapshotCredentials.from_generated_secret(
-            username=veda_db_settings.admin_user
-        )
 
         # Create a new database instance from snapshot if provided
         if veda_db_settings.snapshot_id:
             # For the database from snapshot we will need a new master secret
-
+            credentials = aws_rds.SnapshotCredentials.from_generated_secret(
+                username=veda_db_settings.admin_user
+            )
 
             database = aws_rds.DatabaseInstanceFromSnapshot(
                 self,
@@ -194,7 +193,6 @@ class RdsConstruct(Construct):
                 removal_policy=RemovalPolicy.RETAIN,
                 publicly_accessible=veda_db_settings.publicly_accessible,
                 parameter_group=parameter_group,
-                credentials = credentials
             )
 
         hostname = database.instance_endpoint.hostname
