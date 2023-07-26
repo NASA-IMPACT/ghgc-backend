@@ -4,13 +4,17 @@ from typing import Optional
 from pydantic import BaseSettings, Field
 
 
-class vedaAppSettings(BaseSettings):
+class vedaBackendAppSettings(BaseSettings):
     """Application settings."""
 
     # App name and deployment stage
     app_name: Optional[str] = Field(
-        "ghgc-backend",
+        "backend",
         description="Optional app name used to name stack and resources",
+    )
+    project_prefix: Optional[str] = Field(
+        None,
+        description="Project prefix (ghgc/veda/...)",
     )
     stage: str = Field(
         ...,
@@ -26,11 +30,15 @@ class vedaAppSettings(BaseSettings):
             "subnets will be provisioned."
         ),
     )
-    cdk_default_account: Optional[str] = Field(
+    cdk_qualifier: Optional[str] = Field(
+        "hnb659fds",
+        description="CDK qualifier for deployment.",
+    )
+    aws_account_id: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS account id is required to deploy to an exiting VPC",
     )
-    cdk_default_region: Optional[str] = Field(
+    aws_region: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS region id is required to deploy to an exiting VPC",
     )
@@ -52,8 +60,8 @@ class vedaAppSettings(BaseSettings):
 
         if self.vpc_id:
             return {
-                "account": self.cdk_default_account,
-                "region": self.cdk_default_region,
+                "account": self.aws_account_id,
+                "region": self.aws_region,
             }
         else:
             return {}
@@ -77,4 +85,4 @@ class vedaAppSettings(BaseSettings):
         env_file = ".env"
 
 
-veda_app_settings = vedaAppSettings()
+backend_app_settings = vedaBackendAppSettings()

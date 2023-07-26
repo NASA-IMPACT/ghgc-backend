@@ -11,11 +11,11 @@ class baseSettings(BaseSettings):
         "veda-shared",
         description="Optional name used to name stack and resources",
     )
-    cdk_default_account: Optional[str] = Field(
+    AWS_ACCOUNT_ID: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS account id is required to deploy to an exiting VPC",
     )
-    cdk_default_region: Optional[str] = Field(
+    AWS_REGION: Optional[str] = Field(
         None,
         description="When deploying from a local machine the AWS region id is required to deploy to an exiting VPC",
     )
@@ -27,8 +27,8 @@ class baseSettings(BaseSettings):
     def cdk_env(self) -> dict:
         """Load a cdk environment dict for stack"""
         return {
-            "account": self.cdk_default_account,
-            "region": self.cdk_default_region,
+            "account": self.AWS_ACCOUNT_ID,
+            "region": self.AWS_REGION,
         }
 
     class Config:
