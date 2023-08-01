@@ -42,8 +42,6 @@ logging.getLogger("rio-tiler").setLevel(logging.ERROR)
 settings = ApiSettings()
 templates = Jinja2Templates(directory=str(resources_files(__package__) / "templates"))  # type: ignore
 
-templates = Jinja2Templates(directory=str(resources_files(__package__) / "templates"))  # type: ignore
-
 if settings.debug:
     optional_headers = [OptionalHeader.server_timing, OptionalHeader.x_assets]
 else:
