@@ -61,7 +61,7 @@ class vedaDBSettings(BaseSettings):
     rds_instance_class: str = Field("BURSTABLE3", description="RDS instance type")
 
     rds_instance_size: str = Field("SMALL", description="RDS Instance Size")
-
+    rds_type: str = Field("db.r5.16xlarge", description="RDS Instance Size")
     class Config:
         """model config."""
 
