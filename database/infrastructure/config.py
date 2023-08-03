@@ -58,14 +58,9 @@ class vedaDBSettings(BaseSettings):
         description="Boolean if the RDS should be accessed through a proxy",
     )
     rds_instance_class: Optional[str] = Field(
-        "BURSTABLE3",
-        description="RDS instance type"
+        "BURSTABLE3", description="RDS instance type"
     )
-    rds_instance_size: Optional[str] = Field(
-        "SMALL",
-        description="RDS Instance Size"
-    )
-
+    rds_instance_size: Optional[str] = Field("SMALL", description="RDS Instance Size")
 
     class Config:
         """model config."""

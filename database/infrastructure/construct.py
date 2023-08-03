@@ -167,8 +167,13 @@ class RdsConstruct(Construct):
                 vpc=vpc,
                 engine=engine,
                 instance_type=aws_ec2.InstanceType.of(
-                    getattr(aws_ec2.InstanceClass, veda_db_settings.rds_instance_class.upper()),
-                    getattr(aws_ec2.InstanceSize, veda_db_settings.rds_instance_size.upper())
+                    getattr(
+                        aws_ec2.InstanceClass,
+                        veda_db_settings.rds_instance_class.upper(),
+                    ),
+                    getattr(
+                        aws_ec2.InstanceSize, veda_db_settings.rds_instance_size.upper()
+                    ),
                 ),
                 vpc_subnets=aws_ec2.SubnetSelection(subnet_type=subnet_type),
                 deletion_protection=True,
@@ -188,7 +193,7 @@ class RdsConstruct(Construct):
                 engine=engine,
                 instance_type=aws_ec2.InstanceType.of(
                     getattr(aws_ec2.InstanceClass, veda_db_settings.rds_instance_class),
-                    getattr(aws_ec2.InstanceSize, veda_db_settings.rds_instance_size)
+                    getattr(aws_ec2.InstanceSize, veda_db_settings.rds_instance_size),
                 ),
                 vpc_subnets=aws_ec2.SubnetSelection(subnet_type=subnet_type),
                 deletion_protection=True,
