@@ -57,6 +57,10 @@ class vedaDBSettings(BaseSettings):
         False,
         description="Boolean if the RDS should be accessed through a proxy",
     )
+    rds_type: Optional[str] = Field(
+        "db.r5.8xlarge",
+        description="RDS type"
+    )
 
     class Config:
         """model config."""
