@@ -186,7 +186,7 @@ class RdsConstruct(Construct):
                 vpc=vpc,
                 engine=engine,
                 instance_type=aws_ec2.InstanceType.of(
-                    veda_db_settings.rds_type
+                    "8xlarge", "r5"
                 ),
                 vpc_subnets=aws_ec2.SubnetSelection(subnet_type=subnet_type),
                 deletion_protection=True,
