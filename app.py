@@ -14,6 +14,7 @@ from stac_api.infrastructure.construct import StacApiLambdaConstruct
 app = App()
 proj_prefix = backend_app_settings.project_prefix
 
+
 class BackendStack(Stack):
     """CDK stack for the veda-backend stack."""
 
@@ -38,9 +39,7 @@ backend_stack = BackendStack(
     app,
     f"{proj_prefix}-{backend_app_settings.app_name}-{backend_app_settings.stage_name()}",
     env=backend_app_settings.cdk_env(),
-    synthesizer=DefaultStackSynthesizer(
-        qualifier=backend_app_settings.cdk_qualifier
-)
+    synthesizer=DefaultStackSynthesizer(qualifier=backend_app_settings.cdk_qualifier),
 )
 
 if backend_app_settings.vpc_id:
@@ -51,13 +50,17 @@ if backend_app_settings.vpc_id:
         stage=backend_app_settings.stage_name(),
     )
 else:
-    vpc = VpcConstruct(backend_stack, "network", stage=backend_app_settings.stage_name())
+    vpc = VpcConstruct(
+        backend_stack, "network", stage=backend_app_settings.stage_name()
+    )
 
 database = RdsConstruct(
     backend_stack, "database", vpc.vpc, stage=backend_app_settings.stage_name()
 )
 
-domain = DomainConstruct(backend_stack, "domain", stage=backend_app_settings.stage_name())
+domain = DomainConstruct(
+    backend_stack, "domain", stage=backend_app_settings.stage_name()
+)
 
 raster_api = RasterApiLambdaConstruct(
     backend_stack,

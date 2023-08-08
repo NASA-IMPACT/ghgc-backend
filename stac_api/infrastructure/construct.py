@@ -93,4 +93,6 @@ class StacApiLambdaConstruct(Construct):
             default_domain_mapping=domain_mapping,
         )
 
-        CfnOutput(self, "stac-api", export_name=f"{stack_name}-stac-url", value=stac_api.url)
+        CfnOutput(
+            self, "stac-api", export_name=f"{stack_name}-stac-url", value=stac_api.url
+        )

@@ -182,9 +182,8 @@ class RdsConstruct(Construct):
             )
         # Or create/update RDS Resource
         else:
-          
-            database = aws_rds.DatabaseInstance(self, **database_config)
 
+            database = aws_rds.DatabaseInstance(self, **database_config)
 
         hostname = database.instance_endpoint.hostname
 
