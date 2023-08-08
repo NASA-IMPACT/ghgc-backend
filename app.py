@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ CDK Configuration for the veda-backend stack."""
 
-from aws_cdk import App, Aspects, Stack, Tags, aws_iam, DefaultStackSynthesizer
+from aws_cdk import App, Aspects, DefaultStackSynthesizer, Stack, Tags, aws_iam
 from constructs import Construct
 
 from config import backend_app_settings
