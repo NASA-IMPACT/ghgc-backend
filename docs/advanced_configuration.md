@@ -23,3 +23,6 @@ Environment variables for specific VEDA backend components are prefixed, for exa
 | `VEDA_RASTER_ENABLE_MOSAIC_SEARCH` | Optional deploy the raster API with the mosaic/list endpoint TRUE/FALSE |
 | `VEDA_RASTER_DATA_ACCESS_ROLE_ARN` | Optional arn of IAM Role to be assumed by raster-api for S3 bucket data access, if not provided default role for the lambda construct is used |
 | `VEDA_RASTER_AWS_REQUEST_PAYER` | Set this optional global parameter to 'requester' if the requester agrees to pay S3 transfer costs |
+| `VEDA_DB_RDS_TYPE` | The type and the size of RDS instace , i.e. t3.small |
+
+
