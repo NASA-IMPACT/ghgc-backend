@@ -58,7 +58,7 @@ class vedaDBSettings(BaseSettings):
         description="Boolean if the RDS should be accessed through a proxy",
     )
     rds_type: str = Field(
-        "t3.small",
+        "db.t3.small",
         description="Postgres database type",
     )
 
