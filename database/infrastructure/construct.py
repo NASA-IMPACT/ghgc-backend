@@ -166,7 +166,9 @@ class RdsConstruct(Construct):
                 instance_identifier=f"{stack_name}-postgres",
                 vpc=vpc,
                 engine=engine,
-                instance_type=aws_ec2.InstanceType(instance_type_identifier=veda_db_settings.rds_type),
+                instance_type=aws_ec2.InstanceType(
+                    instance_type_identifier=veda_db_settings.rds_type
+                ),
                 vpc_subnets=aws_ec2.SubnetSelection(subnet_type=subnet_type),
                 deletion_protection=True,
                 removal_policy=RemovalPolicy.RETAIN,
