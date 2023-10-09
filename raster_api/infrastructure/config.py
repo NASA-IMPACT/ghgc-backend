@@ -11,13 +11,14 @@ class MyConfig(BaseSettings.Config):
 
     @classmethod
     def prepare_field(cls, field) -> None:
+        """Workaround to not overwrite ENV_PREFIX"""
         if "env_names" in field.field_info.extra:
             return
         return super().prepare_field(field)
 
 
 class vedaRasterSettings(BaseSettings):
-    """Application settings"""
+    """Raster settings"""
 
     # Default options are optimized for CloudOptimized GeoTIFF
     # For more information on GDAL env see: https://gdal.org/user/configoptions.html
@@ -86,12 +87,15 @@ class vedaRasterSettings(BaseSettings):
 
 
 class Settings(vedaRasterSettings):
+    """Application Settings"""
+
     host: Optional[str] = Field(
         "",
         description="Optional host to send to raster api",  # propagate cf url to raster api
     )
 
     class Config(MyConfig):
+        "Model config"
         env_prefix = "VEDA_"
 
 

@@ -9,13 +9,14 @@ class MyConfig(BaseSettings.Config):
 
     @classmethod
     def prepare_field(cls, field) -> None:
+        """Workaround to not overwrite ENV_PREFIX"""
         if "env_names" in field.field_info.extra:
             return
         return super().prepare_field(field)
 
 
 class vedaSTACSettings(BaseSettings):
-    """Application settings"""
+    """STAC settings"""
 
     env: Dict = {}
 
@@ -41,12 +42,15 @@ class vedaSTACSettings(BaseSettings):
 
 
 class Settings(vedaSTACSettings):
+    """Application Settings"""
+
     host: Optional[str] = Field(
         "",
         description="Optional host to send to stac api",  # stac api populates the urls in the catalog based on this
     )
 
     class Config(MyConfig):
+        "Model config"
         env_prefix = "VEDA_"
 
 
