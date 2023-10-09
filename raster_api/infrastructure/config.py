@@ -6,6 +6,16 @@ from typing import Dict, List, Optional
 from pydantic import BaseSettings, Field
 
 
+class MyConfig(BaseSettings.Config):
+    """Custom config class that support multiple env_prefixes"""
+
+    @classmethod
+    def prepare_field(cls, field) -> None:
+        if "env_names" in field.field_info.extra:
+            return
+        return super().prepare_field(field)
+
+
 class vedaRasterSettings(BaseSettings):
     """Application settings"""
 
@@ -68,11 +78,21 @@ class vedaRasterSettings(BaseSettings):
         description="Optional path prefix to add to all api endpoints",
     )
 
-    class Config:
+    class Config(MyConfig):
         """model config"""
 
         env_file = ".env"
         env_prefix = "VEDA_RASTER_"
 
 
-veda_raster_settings = vedaRasterSettings()
+class Settings(vedaRasterSettings):
+    host: Optional[str] = Field(
+        "",
+        description="Optional host to send to raster api",  # propagate cf url to raster api
+    )
+
+    class Config(MyConfig):
+        env_prefix = "VEDA_"
+
+
+veda_raster_settings = Settings()

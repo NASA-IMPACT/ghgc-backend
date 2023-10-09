@@ -4,6 +4,16 @@ from typing import Dict, Optional
 from pydantic import BaseSettings, Field
 
 
+class MyConfig(BaseSettings.Config):
+    """Custom config class that support multiple env_prefixes"""
+
+    @classmethod
+    def prepare_field(cls, field) -> None:
+        if "env_names" in field.field_info.extra:
+            return
+        return super().prepare_field(field)
+
+
 class vedaSTACSettings(BaseSettings):
     """Application settings"""
 
@@ -23,16 +33,21 @@ class vedaSTACSettings(BaseSettings):
         description="Optional path prefix to add to all api endpoints",
     )
 
+    class Config(MyConfig):
+        """model config"""
+
+        env_file = ".env"
+        env_prefix = "VEDA_STAC"
+
+
+class Settings(vedaSTACSettings):
     host: Optional[str] = Field(
         "",
         description="Optional host to send to stac api",  # stac api populates the urls in the catalog based on this
     )
 
-    class Config:
-        """model config"""
-
-        env_file = ".env"
-        env_prefix = "VEDA_STAC_"
+    class Config(MyConfig):
+        env_prefix = "VEDA_"
 
 
-veda_stac_settings = vedaSTACSettings()
+veda_stac_settings = Settings()
