@@ -45,3 +45,4 @@ class MultiBaseTilerFactory(TitilerFactory.MultiBaseTilerFactory):
                 },
                 media_type="text/html",
             )
+

@@ -58,7 +58,7 @@ class _ApiSettings(pydantic.BaseSettings):
     cors_origins: str = "*"
     cachecontrol: str = "public, max-age=3600"
     debug: bool = False
-
+    root_path: Optional[str] = None
     pgstac_secret_arn: Optional[str]
     path_prefix: str = ""
 
