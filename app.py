@@ -2,14 +2,12 @@
 """ CDK Configuration for the veda-backend stack."""
 
 from aws_cdk import App, Aspects, Stack, Tags, aws_iam
-from aws_cdk import App, Aspects, Stack, Tags, aws_iam
 from constructs import Construct
 
 from config import veda_app_settings
 from database.infrastructure.construct import RdsConstruct
 from domain.infrastructure.construct import DomainConstruct
 from network.infrastructure.construct import VpcConstruct
-from permissions_boundary.infrastructure.construct import PermissionsBoundaryAspect
 from raster_api.infrastructure.construct import RasterApiLambdaConstruct
 from routes.infrastructure.construct import CloudfrontDistributionConstruct
 from stac_api.infrastructure.construct import StacApiLambdaConstruct

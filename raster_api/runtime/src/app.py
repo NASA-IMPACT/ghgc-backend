@@ -119,9 +119,7 @@ cog = TilerFactory(
     colormap_dependency=ColorMapParams,
 )
 
-app.include_router(
-    cog.router, tags=["Cloud Optimized GeoTIFF"], prefix="/cog"
-)
+app.include_router(cog.router, tags=["Cloud Optimized GeoTIFF"], prefix="/cog")
 
 
 @app.get("/healthz", description="Health Check", tags=["Health Check"])

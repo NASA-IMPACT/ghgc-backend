@@ -10,7 +10,7 @@ from aws_cdk import (
     RemovalPolicy,
     Stack,
     aws_ec2,
-    aws_iam, 
+    aws_iam,
     aws_lambda,
     aws_logs,
     aws_rds,
