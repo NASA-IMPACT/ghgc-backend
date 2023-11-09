@@ -72,7 +72,6 @@ class BootstrapPgStac(Construct):
                         "engine": "postgres",
                         "port": 5432,
                         "host": host,
-                        "host": host,
                         "username": new_username,
                     }
                 ),
