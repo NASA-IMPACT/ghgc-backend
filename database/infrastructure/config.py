@@ -86,7 +86,7 @@ class vedaDBSettings(BaseSettings):
             "https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/PostgresEngineVersion.html"
         ),
     )
-    storage_encrypted: Optional[bool] = Field(
+    rds_encryption: Optional[bool] = Field(
         False,
         description="Boolean if the RDS should be encrypted",
     )
