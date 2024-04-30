@@ -128,6 +128,21 @@ def ping():
     return {"ping": "pong!!"}
 
 
+@app.get("/versions", description="Get Python library versions", tags=["Version"])
+def versions():
+    """Versions check."""
+    import rio_tiler as tr
+
+    import starlette as stlt
+    import titiler.pgstac as tgst
+
+    return {
+        "rio_tiler": tr.__version__,
+        "starlette": stlt.__version__,
+        "titiler-pgstac": tgst.__version__,
+    }
+
+
 # Add support for non-default projections
 tms = TMSFactory()
 app.include_router(tms.router, tags=["Tiling Schemes"])
