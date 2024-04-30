@@ -132,6 +132,7 @@ def ping():
 def versions():
     """Versions check."""
     import rio_tiler as tr
+
     import starlette as stlt
     import titiler.pgstac as tgst
 
