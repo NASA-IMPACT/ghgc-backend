@@ -17,7 +17,7 @@ inst_reqs = [
     "importlib_resources>=1.1.0;python_version<='3.9'",  # https://github.com/cogeotiff/rio-tiler/pull/379
     "pygeoif<=0.8",  # newest release (1.0+ / 09-22-2022) breaks a number of other geo libs
     "aws-lambda-powertools>=1.18.0",
-    "aws_xray_sdk>=2.6.0,<3",
+    "aws_xray_sdk>=2.6.0,<3"
 ]
 
 extra_reqs = {
