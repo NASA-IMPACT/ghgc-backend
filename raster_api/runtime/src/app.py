@@ -1,4 +1,4 @@
-"""TiTiler+PgSTAC FastAPI application."""
+git diff """TiTiler+PgSTAC FastAPI application."""
 import logging
 from contextlib import asynccontextmanager
 
@@ -131,16 +131,11 @@ def ping():
 @app.get("/versions", description="Get Python library versions", tags=["Version"])
 def versions():
     """Versions check."""
-    import rio_tiler as tr
-
-    import starlette as stlt
-    import titiler.pgstac as tgst
-
-    return {
-        "rio_tiler": tr.__version__,
-        "starlette": stlt.__version__,
-        "titiler-pgstac": tgst.__version__,
-    }
+    import pkg_resources
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
 
 
 # Add support for non-default projections
