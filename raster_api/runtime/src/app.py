@@ -128,6 +128,17 @@ def ping():
     return {"ping": "pong!!"}
 
 
+@app.get("/versions", description="Get used Python library versions", tags=["Versions"])
+def versions():
+    """Versions check."""
+    import pkg_resources
+
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
+
+
 # Add support for non-default projections
 tms = TMSFactory()
 app.include_router(tms.router, tags=["Tiling Schemes"])
