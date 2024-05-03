@@ -71,6 +71,17 @@ if tiles_settings.titiler_endpoint:
     extension.register(api.app, tiles_settings.titiler_endpoint)
 
 
+@app.get("/versions", description="Get used Python library versions", tags=["Versions"])
+def versions():
+    """Versions check."""
+    import pkg_resources
+
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
+
+
 @app.get("/index.html", response_class=HTMLResponse)
 async def viewer_page(request: Request):
     """Search viewer."""

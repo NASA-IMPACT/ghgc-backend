@@ -7,6 +7,7 @@ with open("README.md") as f:
 
 inst_reqs = [
     "boto3",
+    "rio-tiler==6.5.0",
     "titiler.pgstac==0.8.3",
     "titiler.core>=0.15.5,<0.16",
     "titiler.mosaic>=0.15.5,<0.16",
@@ -15,7 +16,6 @@ inst_reqs = [
     "aws_xray_sdk>=2.6.0,<3",
     "aws-lambda-powertools>=1.18.0",
     "python-multipart==0.0.7",
-    "rio-tiler==6.4.4",
 ]
 
 extra_reqs = {

@@ -128,19 +128,15 @@ def ping():
     return {"ping": "pong!!"}
 
 
-@app.get("/versions", description="Get Python library versions", tags=["Version"])
+@app.get("/versions", description="Get used Python library versions", tags=["Versions"])
 def versions():
     """Versions check."""
-    import rio_tiler as tr
+    import pkg_resources
 
-    import starlette as stlt
-    import titiler.pgstac as tgst
-
-    return {
-        "rio_tiler": tr.__version__,
-        "starlette": stlt.__version__,
-        "titiler-pgstac": tgst.__version__,
-    }
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
 
 
 # Add support for non-default projections
