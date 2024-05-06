@@ -1,4 +1,5 @@
 """Observability utils"""
+
 from typing import Callable
 
 from aws_lambda_powertools import Logger, Metrics, Tracer

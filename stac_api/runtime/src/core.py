@@ -1,4 +1,5 @@
 """CoreCrudClient extensions for the VEDA STAC API."""
+
 from datetime import datetime
 from typing import Any, List, Optional, Union
 
