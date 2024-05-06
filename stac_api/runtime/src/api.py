@@ -1,4 +1,5 @@
 """FastAPI extensions for the VEDA STAC API."""
+
 from typing import List
 
 import attr
