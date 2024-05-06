@@ -1,6 +1,7 @@
 """FastAPI application using PGStac.
 Based on https://github.com/developmentseed/eoAPI/tree/master/src/eoapi/stac
 """
+
 from aws_lambda_powertools.metrics import MetricUnit
 from src.config import ApiSettings, TilesApiSettings
 from src.config import extensions as PgStacExtensions
@@ -69,6 +70,17 @@ if tiles_settings.titiler_endpoint:
     # Register to the TiTiler extension to the api
     extension = TiTilerExtension()
     extension.register(api.app, tiles_settings.titiler_endpoint)
+
+
+@app.get("/versions", description="Get used Python library versions", tags=["Versions"])
+def versions():
+    """Versions check."""
+    import pkg_resources
+
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
 
 
 @app.get("/index.html", response_class=HTMLResponse)

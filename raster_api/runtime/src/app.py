@@ -1,4 +1,5 @@
 """TiTiler+PgSTAC FastAPI application."""
+
 import logging
 from contextlib import asynccontextmanager
 
@@ -126,6 +127,17 @@ app.include_router(cog.router, tags=["Cloud Optimized GeoTIFF"], prefix="/cog")
 def ping():
     """Health check."""
     return {"ping": "pong!!"}
+
+
+@app.get("/versions", description="Get used Python library versions", tags=["Versions"])
+def versions():
+    """Versions check."""
+    import pkg_resources
+
+    pkg_versions = {}
+    for element in pkg_resources.working_set:
+        pkg_versions[element.key] = element.version
+    return pkg_versions
 
 
 # Add support for non-default projections
