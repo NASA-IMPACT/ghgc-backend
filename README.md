@@ -1,4 +1,8 @@
 # veda-backend
+
+> [!IMPORTANT]
+> The US GHG Center has started using [veda-backend](https://github.com/NASA-IMPACT/veda-backend/) repository directly for its backend services. Hence, this forked version of the veda-backend repository is no longer maintained and so the repository is now archived.
+
 This project deploys a complete backend for a [SpatioTemporal Asset Catalog](https://stacspec.org/) including a postgres database, a metadata API, and raster tiling API. Veda-backend is a non-forked version of the [eoAPI](https://github.com/developmentseed/eoAPI) demo project. Veda-backend is decoupled from the demo project to selectively incorporate new stable functionality from the fast moving development in eoAPI while providing a continuous baseline for veda-backend users and to support project specific business and deployment logic.
 
 The primary tools employed in the [eoAPI demo](https://github.com/developmentseed/eoAPI) and this project are:
